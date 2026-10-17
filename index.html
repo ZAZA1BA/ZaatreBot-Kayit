@@ -2,10 +2,44 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Zaatre Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛡️ Zaatre Güvenlik Doğrulama</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-family: Arial; text-align: center; padding: 100px;">
-    <h1>🛡️ Zaatre Çalışıyor!</h1>
-    <p>GitHub Pages başarıyla kuruldu.</p>
+<body>
+    <div class="container">
+        <div class="logo">🛡️</div>
+        <h1>Zaatre Güvenlik</h1>
+        <p class="subtitle">Hesabınızı doğrulayın</p>
+        
+        <div id="step1" class="step">
+            <label>Kullanıcı Kimliği</label>
+            <input type="text" id="userCode" placeholder="A7B2K9M3" maxlength="8" autocomplete="off">
+            <button onclick="verifyUser()" id="verifyBtn">Doğrula</button>
+            <p class="hint">💡 Kullanıcı kimliğini botta <b>/start</b> yazarak alabilirsin</p>
+        </div>
+
+        <div id="loading" class="step" style="display:none;">
+            <div class="spinner"></div>
+            <p>Doğrulanıyor...</p>
+        </div>
+
+        <div id="success" class="step" style="display:none;">
+            <div class="icon-success">✅</div>
+            <h2>Doğrulama Başarılı</h2>
+            <p>Kimlik: <b id="verifiedCode"></b></p>
+            <p>Ülke: <b id="verifiedCountry"></b></p>
+            <p class="info">Artık botu kullanabilirsiniz</p>
+        </div>
+
+        <div id="error" class="step" style="display:none;">
+            <div class="icon-error">❌</div>
+            <h2 id="errorTitle">Hata</h2>
+            <p id="errorMsg"></p>
+            <button onclick="resetForm()">Tekrar Dene</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
