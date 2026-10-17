@@ -3,43 +3,544 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🛡️ Zaatre Güvenlik Doğrulama</title>
-    <link rel="stylesheet" href="style.css">
+    <title>🛡️ Zaatre Güvenlik</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Animasyonlu şekiller */
+        .bg-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) { width: 80px; height: 80px; top: 10%; left: 10%; animation-delay: 0s; }
+        .shape:nth-child(2) { width: 120px; height: 120px; top: 60%; left: 80%; animation-delay: 2s; }
+        .shape:nth-child(3) { width: 60px; height: 60px; top: 80%; left: 20%; animation-delay: 4s; }
+        .shape:nth-child(4) { width: 100px; height: 100px; top: 20%; left: 70%; animation-delay: 6s; }
+        .shape:nth-child(5) { width: 50px; height: 50px; top: 50%; left: 50%; animation-delay: 8s; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(30px, -30px) rotate(90deg); }
+            50% { transform: translate(-20px, 20px) rotate(180deg); }
+            75% { transform: translate(20px, 30px) rotate(270deg); }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 45px 35px;
+            border-radius: 24px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 440px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: slideUp 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .logo {
+            font-size: 70px;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        h1 {
+            color: #333;
+            font-size: 26px;
+            margin-bottom: 6px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .step {
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            color: #555;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 14px;
+            font-size: 18px;
+            text-align: center;
+            letter-spacing: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(102,126,234,0.15);
+            transform: scale(1.02);
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-size: 200% 200%;
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 18px;
+            transition: all 0.3s;
+            animation: gradientShift 3s ease infinite;
+            box-shadow: 0 8px 20px rgba(102,126,234,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(102,126,234,0.6);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .hint {
+            color: #888;
+            font-size: 12px;
+            margin-top: 18px;
+            line-height: 1.6;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .hint b {
+            color: #667eea;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(102,126,234,0.2);
+            border-top-color: #667eea;
+            border-radius: 50%;
+            margin: 25px auto;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .icon-success, .icon-error {
+            font-size: 80px;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+        .icon-success { animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), pulse 2s infinite 0.5s; }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        h2 {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .info {
+            color: #888;
+            font-size: 13px;
+            margin-top: 22px;
+            padding: 12px;
+            background: #e8f5e9;
+            border-radius: 10px;
+            color: #2e7d32;
+        }
+
+        #success p, #error p {
+            color: #555;
+            margin: 10px 0;
+            font-size: 15px;
+        }
+
+        #success b, #error b {
+            color: #667eea;
+            font-weight: 700;
+        }
+
+        .loading-text {
+            color: #667eea;
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 15px;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            border-radius: 14px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #28a745;
+        }
+
+        .error-box {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            border-radius: 14px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #dc3545;
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 35px 25px; }
+            h1 { font-size: 22px; }
+            .logo { font-size: 55px; }
+        }
+    </style>
 </head>
 <body>
+    <!-- Animasyonlu arka plan şekilleri -->
+    <div class="bg-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
     <div class="container">
         <div class="logo">🛡️</div>
         <h1>Zaatre Güvenlik</h1>
-        <p class="subtitle">Hesabınızı doğrulayın</p>
+        <p class="subtitle">Hesabınızı güvenle doğrulayın</p>
         
+        <!-- ADIM 1: Kimlik girişi -->
         <div id="step1" class="step">
             <label>Kullanıcı Kimliği</label>
             <input type="text" id="userCode" placeholder="A7B2K9M3" maxlength="8" autocomplete="off">
-            <button onclick="verifyUser()" id="verifyBtn">Doğrula</button>
+            <button onclick="verifyUser()" id="verifyBtn">🔐 Doğrula</button>
             <p class="hint">💡 Kullanıcı kimliğini botta <b>/start</b> yazarak alabilirsin</p>
         </div>
 
+        <!-- ADIM 2: Yükleniyor -->
         <div id="loading" class="step" style="display:none;">
             <div class="spinner"></div>
-            <p>Doğrulanıyor...</p>
+            <p class="loading-text">Güvenlik kontrolü yapılıyor...</p>
         </div>
 
+        <!-- ADIM 3: Başarılı -->
         <div id="success" class="step" style="display:none;">
-            <div class="icon-success">✅</div>
-            <h2>Doğrulama Başarılı</h2>
-            <p>Kimlik: <b id="verifiedCode"></b></p>
-            <p>Ülke: <b id="verifiedCountry"></b></p>
-            <p class="info">Artık botu kullanabilirsiniz</p>
+            <div class="success-box">
+                <div class="icon-success">✅</div>
+                <h2>Doğrulama Başarılı</h2>
+                <p>Kimlik: <b id="verifiedCode"></b></p>
+                <p>Ülke: <b id="verifiedCountry"></b></p>
+                <p>Tarayıcı: <b id="verifiedBrowser"></b></p>
+            </div>
+            <p class="info">✅ Artık botu güvenle kullanabilirsiniz</p>
         </div>
 
+        <!-- ADIM 4: Hata -->
         <div id="error" class="step" style="display:none;">
-            <div class="icon-error">❌</div>
-            <h2 id="errorTitle">Hata</h2>
-            <p id="errorMsg"></p>
-            <button onclick="resetForm()">Tekrar Dene</button>
+            <div class="error-box">
+                <div class="icon-error">❌</div>
+                <h2 id="errorTitle">Hata</h2>
+                <p id="errorMsg"></p>
+            </div>
+            <button onclick="resetForm()">🔄 Tekrar Dene</button>
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <script>
+        // ==================== CONFIG ====================
+        const SUPABASE_URL = "https://zwaxobjavmkfxfyiztzw.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_v5ouU3ds1yotcTbEdLjZIw_I-xJtZcp";
+        const EDGE_FUNCTION_URL = "https://zwaxobjavmkfxfyiztzw.supabase.co/functions/v1/smart-endpoint";
+
+        // ==================== KAYITLI KULLANICI KONTROLÜ ====================
+        // Sayfa açılınca önceki kaydı kontrol et
+        window.addEventListener('load', () => {
+            const savedUser = localStorage.getItem('zaatre_verified');
+            if (savedUser) {
+                try {
+                    const data = JSON.parse(savedUser);
+                    // 7 gün içinde doğrulanmışsa tekrar giriş yapma
+                    const diff = Date.now() - data.timestamp;
+                    if (diff < 7 * 24 * 60 * 60 * 1000) {
+                        showSuccess(data.code, data.country, data.browser);
+                        return;
+                    }
+                } catch(e) {}
+            }
+        });
+
+        // ==================== DOĞRULAMA ====================
+        async function verifyUser() {
+            const codeInput = document.getElementById('userCode');
+            const userCode = codeInput.value.trim().toUpperCase();
+
+            if (!userCode || userCode.length !== 8) {
+                showError("Geçersiz Kimlik", "Kullanıcı kimliği 8 haneli olmalıdır.");
+                return;
+            }
+
+            // Butonu devre dışı bırak
+            const btn = document.getElementById('verifyBtn');
+            btn.disabled = true;
+
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+
+            try {
+                // Cihaz bilgisi topla
+                const deviceInfo = {
+                    userAgent: navigator.userAgent,
+                    platform: navigator.platform,
+                    language: navigator.language,
+                    screen: `${screen.width}x${screen.height}`,
+                    cores: navigator.hardwareConcurrency || 'unknown',
+                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                    touch: 'ontouchstart' in window,
+                    timestamp: new Date().toISOString(),
+                    memory: navigator.deviceMemory || 'unknown'
+                };
+
+                // Edge Function'a istek
+                const response = await fetch(EDGE_FUNCTION_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    },
+                    body: JSON.stringify({
+                        user_code: userCode,
+                        device_info: deviceInfo
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Tarayıcı tespit
+                    const browser = detectBrowser();
+                    
+                    // LocalStorage'a kaydet (7 gün geçerli)
+                    localStorage.setItem('zaatre_verified', JSON.stringify({
+                        code: userCode,
+                        country: data.country || 'TR',
+                        browser: browser,
+                        timestamp: Date.now()
+                    }));
+
+                    // Başarılı göster
+                    showSuccess(userCode, data.country || 'TR', browser);
+
+                    // 5 saniye sonra kapat
+                    setTimeout(() => {
+                        if (window.opener || window.history.length <= 1) {
+                            window.close();
+                        }
+                    }, 5000);
+                } else {
+                    // Hata göster
+                    document.getElementById('loading').style.display = 'none';
+                    btn.disabled = false;
+                    
+                    let errorTitle = 'Doğrulama Başarısız';
+                    let errorMsg = data.error || 'Bilinmeyen hata';
+                    
+                    if (data.error && data.error.includes('Türkiye')) {
+                        errorTitle = '🚫 Erişim Reddedildi';
+                        errorMsg = 'VPN veya yurt dışı IP tespit edildi. Sadece Türkiye ve Azerbaycan\'dan erişim izinlidir. Lütfen VPN\'i kapatıp tekrar deneyin.';
+                    }
+                    
+                    showError(errorTitle, errorMsg, data.country);
+                }
+
+            } catch (error) {
+                console.error('Hata:', error);
+                document.getElementById('loading').style.display = 'none';
+                btn.disabled = false;
+                showError("Bağlantı Hatası", "Sunucuya bağlanılamadı. İnternet bağlantınızı kontrol edip tekrar deneyin.");
+            }
+        }
+
+        // ==================== TARAYICI TESPİT ====================
+        function detectBrowser() {
+            const ua = navigator.userAgent;
+            if (ua.includes('Chrome') && !ua.includes('Edg')) return 'Chrome';
+            if (ua.includes('Firefox')) return 'Firefox';
+            if (ua.includes('Safari') && !ua.includes('Chrome')) return 'Safari';
+            if (ua.includes('Edg')) return 'Edge';
+            if (ua.includes('Opera') || ua.includes('OPR')) return 'Opera';
+            return 'Bilinmeyen';
+        }
+
+        // ==================== YARDIMCI FONKSİYONLAR ====================
+        function showSuccess(code, country, browser) {
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('verifiedCode').textContent = code;
+            document.getElementById('verifiedCountry').textContent = country;
+            document.getElementById('verifiedBrowser').textContent = browser;
+            document.getElementById('success').style.display = 'block';
+        }
+
+        function showError(title, message, country = null) {
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('success').style.display = 'none';
+            document.getElementById('errorTitle').textContent = title;
+            let msg = message;
+            if (country && country !== 'TR' && country !== 'AZ') {
+                msg += `\n\n📍 Tespit edilen ülke: ${country}`;
+            }
+            document.getElementById('errorMsg').textContent = msg;
+            document.getElementById('errorMsg').style.whiteSpace = 'pre-line';
+            document.getElementById('error').style.display = 'block';
+        }
+
+        function resetForm() {
+            document.getElementById('userCode').value = '';
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('success').style.display = 'none';
+            document.getElementById('step1').style.display = 'block';
+            document.getElementById('verifyBtn').disabled = false;
+            document.getElementById('userCode').focus();
+        }
+
+        // ==================== EVENT LISTENERS ====================
+        document.getElementById('userCode').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') verifyUser();
+        });
+
+        document.getElementById('userCode').addEventListener('input', (e) => {
+            e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+        });
+
+        // Otomatik odaklan
+        document.getElementById('userCode').focus();
+    </script>
 </body>
 </html>
