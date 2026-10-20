@@ -10,49 +10,79 @@
             margin: 0;
             padding: 20px;
             background-color: #ffffff;
-            color: #000000;
-            font-size: 17px; /* Görseldeki font boyutuna uygun */
+            color: #111111;
+            font-size: 18px; /* Görseldeki genel yazı boyutu */
         }
 
+        /* Üst Kısım: Başlık ve Sağdaki Link */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            margin-top: 10px;
+        }
+
+        .top-header h2 {
+            font-size: 22px;
+            font-weight: 400;
+            margin: 0;
+            color: #1a1a1a;
+        }
+
+        .top-header .show-all {
+            color: #2b7bd6;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        /* Büyük Ana Başlık */
         h1 {
-            font-size: 34px;
+            font-size: 42px;
             font-weight: 700;
             color: #1a1a1a;
-            margin-top: 10px;
-            margin-bottom: 30px;
+            margin-top: 0;
+            margin-bottom: 25px;
             line-height: 1.1;
+            letter-spacing: -0.5px;
         }
 
+        /* Sipariş Kartı (Çerçeveli Alan) */
         .order-card {
-            border: 1px solid #e5e5e5;
-            padding: 25px 20px;
-            margin-bottom: 20px;
+            border: 1px solid #d1d1d1;
+            padding: 20px;
             background-color: #ffffff;
         }
 
+        /* Satırlar */
         .row {
             display: flex;
             margin-bottom: 22px;
+            align-items: flex-start;
         }
 
         .row:last-child {
             margin-bottom: 0;
         }
 
+        /* Etiketler (Sol Taraf) */
         .label {
-            font-weight: 600; /* Yazı kalınlığı */
-            width: 155px; /* Etiketlerin hizalanması için sabit genişlik */
+            font-weight: 700;
+            width: 170px;
             flex-shrink: 0;
-            color: #1a1a1a;
+            color: #111111;
         }
 
+        /* Değerler (Sağ Taraf) */
         .value {
             flex-grow: 1;
-            color: #333333;
+            color: #222222;
         }
 
+        /* İşlemler Linki */
         .link {
-            color: #2b7bd6; /* Görseldeki mavi tonu */
+            color: #2b7bd6;
             text-decoration: none;
             cursor: pointer;
         }
@@ -60,16 +90,24 @@
 </head>
 <body>
 
+    <!-- Üst Kısım -->
+    <div class="top-header">
+        <h2>Geçmiş Siparişler</h2>
+        <a href="#" class="show-all">Hepsini Göster</a>
+    </div>
+
+    <!-- Ana Başlık -->
     <h1>Geçmiş<br>Siparişler</h1>
 
+    <!-- Sipariş Detay Kutusu -->
     <div class="order-card">
         <div class="row">
             <div class="label">Sipariş #:</div>
-            <div class="value">GRO000626251</div>
+            <div class="value">GRO000626362</div>
         </div>
         <div class="row">
             <div class="label">Tarih:</div>
-            <div class="value">18.10.2026</div>
+            <div class="value">20.10.2026</div>
         </div>
         <div class="row">
             <div class="label">Gönderim Adresi:</div>
@@ -77,15 +115,15 @@
         </div>
         <div class="row">
             <div class="label">Sipariş Toplamı:</div>
-            <div class="value">276.449,03 TL</div>
+            <div class="value">653.146,10 TL</div>
         </div>
         <div class="row">
             <div class="label">Durum:</div>
-            <div class="value">Ödeme Onaylandı</div>
+            <div class="value">Siparişiniz Hazırlılıyor</div>
         </div>
         <div class="row">
             <div class="label">İşlemler:</div>
-            <div class="value"><a class="link" href="#">Siparişi Göster</a></div>
+            <div class="value"><a href="#" class="link">Siparişi Göster</a></div>
         </div>
     </div>
 
